@@ -1,7 +1,7 @@
 # 🫀 Heart Disease Prediction with Traditional ML vs. CatBoost
 
 ## 📌 Overview
-This project investigates the performance of different machine learning models in predicting heart disease using structured clinical data. We compare traditional algorithms—**Logistic Regression**, **K-Nearest Neighbors (KNN)**, and **Random Forest**—against **CatBoost**, a modern gradient boosting method designed for high accuracy on tabular data and native handling of categorical features.
+This project investigates the performance of different machine learning models in predicting heart disease using structured clinical data. We compare traditional algorithms **Logistic Regression**, **K-Nearest Neighbors (KNN)**, and **Random Forest** against **CatBoost**, a modern gradient boosting method designed for high accuracy on tabular data and native handling of categorical features.
 
 ---
 
