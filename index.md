@@ -1,96 +1,52 @@
-# 🫀 Heart Disease Prediction with Traditional ML vs. CatBoost
-
+## 🫀 Heart Disease Prediction with Traditional ML vs. CatBoost
 ## Overview
 This project investigates the performance of different machine learning models in predicting heart disease using structured clinical data. We compare traditional algorithms—**Logistic Regression**, **K-Nearest Neighbors (KNN)**, and **Random Forest**—against **CatBoost**, a modern gradient boosting method designed for high accuracy on tabular data and native handling of categorical features.
-
 ## Objectives
 - Build a robust heart disease prediction pipeline.
 - Evaluate model performance using cross-validation.
 - Compare traditional ML models vs. CatBoost on metrics like **Accuracy**, **F1 Score**, **Precision**, **Recall**, and **AUC**.
 - Assess the trade-offs between model **simplicity**, **interpretability**, and **predictive power**.
-
 ## Dataset
 We use the [UCI Cleveland Heart Disease dataset](https://archive.ics.uci.edu/ml/datasets/heart+Disease), a widely studied dataset in medical ML research.
-
 ## Tools & Libraries
 - Python, Jupyter Notebook
 - Pandas, NumPy, Matplotlib, Seaborn
 - Scikit-learn
 - CatBoost
-
-## 🔍 Key Visualizations
-
-### 📊 Traditional Model Evaluation Metrics
-![Traditional Model Evaluation](images/evaluation%20metrics%20Traditional%20Model.png)
-
-### 🧪 Traditional Model Cross-Validated Metrics
-![Traditional CV Metrics](images/cross-validated%20metrics%20Traditional%20Model.png)
-
-### ⚡ CatBoost Evaluation Metrics
-![CatBoost Evaluation](images/catboost%20Evaluation%20Metrics.png)
-
-### 🔁 CatBoost Cross-Validated Metrics
-![CatBoost CV Metrics](images/Catboost%20cross-validated%20metrics.png)
-
-### 📉 ROC Curve Comparison
-![ROC Curve](images/ROC%20Curve%20Comparison.png)
-
-### 🔀 Confusion Matrix - Tuned Models
-![Confusion Matrix](images/Confusion%20Matrix%20Random%20VS%20Grid.png)
-
-### 🧠 Feature Importances
-- Logistic Regression  
-  ![Logistic Regression Features](images/Logisitic%20Regression%20Feature%20Importance.png)
-
-- Random Forest  
-  ![Random Forest Features](images/Random%20Forest%20Feature%20Importance.png)
-
-- CatBoost  
-  ![CatBoost Features](images/CatBoost%20Feature%20Importance.png)
-
-### 📊 Cross-Model Comparison
-- Preliminary Comparison  
-  ![Preliminary](images/Preliminary%20comparison%20chart.png)
-
-- Classification Metrics Comparison  
-  ![Model Metrics](images/Cross-validated%20classification%20metrics%20by%20model.png)
-
-- Train vs Test - Tuned Models  
-  ![Train vs Test](images/Train%20VS%20Test%20Tuned%20Models%20Random%20VS%20Grid.png)
-
-- Random vs Grid - Tuned Models  
-  ![Eval Random vs Grid](images/Evaluation%20for%20Tuned%20Models%20Random%20VS%20Grid.png)
-
----
-
-## 📁 Repository Structure
+## Key Visualizations
+### 📊 Catboost cv metrics
+![Catboost cv metrics](./images/catboost_cv_metrics.png)
+### 📊 Catboost evaluation
+![Catboost evaluation](./images/catboost_evaluation.png)
+### 📊 Catboost feature importance
+![Catboost feature importance](./images/catboost_feature_importance.png)
+### 📊 Confusion matrix random vs grid
+![Confusion matrix random vs grid](./images/confusion_matrix_random_vs_grid.png)
+### 📊 Cross validated metrics by model
+![Cross validated metrics by model](./images/cross_validated_metrics_by_model.png)
+### 📊 Traditional cv metrics
+![Traditional cv metrics](./images/traditional_cv_metrics.png)
+### 📊 Evaluation tuned models
+![Evaluation tuned models](./images/evaluation_tuned_models.png)
+### 📊 Traditional evaluation
+![Traditional evaluation](./images/traditional_evaluation.png)
+## Repository Structure
 ```
-├── Heart-Disease-Prediction.ipynb       # Main notebook
-├── images/                              # Visualizations used in README
-│   ├── *.png
-├── README.md                            # Project description and setup
+├── Heart-Disease-Prediction.ipynb   # Main notebook
+├── images/                          # Evaluation visualizations
+│   ├── catboost_cv_metrics.png
+│   ├── catboost_evaluation.png
+│   ├── catboost_feature_importance.png
+│   ├── confusion_matrix_random_vs_grid.png
+│   ├── cross_validated_metrics_by_model.png
+│   ├── traditional_cv_metrics.png
+│   ├── evaluation_tuned_models.png
+│   ├── traditional_evaluation.png
+├── README.md                        # Project description and setup
 ```
-
-## 🧪 How to Run
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/<your-username>/Heart-Disease-Prediction.git
-   cd Heart-Disease-Prediction
-   ```
-2. (Optional) Create a virtual environment and activate it:
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Launch Jupyter Notebook:
-   ```bash
-   jupyter notebook
-   ```
-
-## 📜 License
-This project is intended for educational and research purposes only.
+## How to Run
+1. Clone the repository
+2. Set up a virtual environment and install dependencies
+3. Run `Heart-Disease-Prediction.ipynb` using Jupyter Notebook
+## License
 This project is for educational and research purposes.
