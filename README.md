@@ -21,7 +21,7 @@ We use the [UCI Cleveland Heart Disease dataset](https://archive.ics.uci.edu/ml/
 ## 🔍 Key Visualizations
 
 ### 📊 Traditional Model Evaluation Metrics
-evaluation metrics Traditional Model.png
+![Traditional Evaluation](images/evaluation%20metrics%20Traditional%20Model.png)
 
 ### ⚡ CatBoost Evaluation Metrics
 ![CatBoost Evaluation](images/catboost%20Evaluation%20Metrics.png)
