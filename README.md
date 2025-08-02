@@ -45,3 +45,14 @@ We use the [UCI Cleveland Heart Disease dataset](https://archive.ics.uci.edu/ml/
 ![Tuned Evaluation](images/Evaluation%20for%20Tuned%20Models%20Random%20VS%20Grid.png)
 
 ## 🗂️ Repository Structure
+├── Heart-Disease-Prediction.ipynb # Main notebook
+├── images/ # Evaluation visualizations
+│ ├── Catboost cross-validated metrics.png
+│ ├── catboost Evaluation Metrics.png
+│ ├── CatBoost Feature Importance.png
+│ ├── Confusion Matrix Random VS Grid.png
+│ ├── Cross-validated classifiaction metrics by model.png
+│ ├── cross-validated metrics Traditional Model.png
+│ ├── Evaluation for Tuned Models Random VS Grid.png
+│ └── evaluation metrics Traditional Model.png
+├── README.md # Project description and setup
