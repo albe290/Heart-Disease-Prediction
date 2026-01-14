@@ -152,7 +152,8 @@ and improve auditability.
 
 ![A05 Feature Importance](./images/A05_Model_Transparency_Explainability.png)
 
-![A05 Supporting Metrics](./images/Metrics_for_A05.png)
+![Metrics for A05](./images/Metrics_A05.png)
+
 
 
 ---
