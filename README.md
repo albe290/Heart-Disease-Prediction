@@ -1,4 +1,4 @@
-# 🫀 Heart Disease Prediction — Security-Hardened Machine Learning (OWASP AI Top 10)
+# 🫀 Heart Disease Prediction - Security-Hardened Machine Learning (OWASP AI Top 10)
 
 ## Overview
 
