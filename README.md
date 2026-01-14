@@ -123,13 +123,13 @@ validate_inputs(TRAINING_DF)
 
 ### 🔴 A05 – Model Transparency & Explainability
 
-**Threat:**
-Opaque model behavior reduces trust, auditability, and the ability to validate predictions in high-impact domains.
+**Threat:**  
+Opaque model behavior reduces trust, auditability, and the ability to validate predictions
+in high-impact domains such as healthcare.
 
 **Controls Implemented:**
-
-* Feature importance analysis
-* Human-readable transparency into model behavior
+- Feature importance analysis
+- Human-readable transparency into model behavior
 
 ```python
 feature_importance = pd.DataFrame({
@@ -138,15 +138,22 @@ feature_importance = pd.DataFrame({
 }).sort_values(by="importance", ascending=False)
 
 feature_importance
+
 ```
+## Key Visualizations
 
-This enables validation that predictions are driven by **clinically meaningful features** rather than spurious correlations.
+### 📊 Model Evaluation & Comparison
+- Traditional ML vs CatBoost cross-validation metrics
+- Confusion matrices and tuned model evaluation
 
-**Evidence:**
-![A05 Model Transparency](./images/A05_Model_Transparency_Explainability.png)
+### 🔍 A05 – Model Transparency & Metrics
+Feature importance and supporting metrics used to validate model behavior
+and improve auditability.
 
-**Supporting Metrics:**
-![Metrics for A05](./images/Metrics_for_A05.png)
+![A05 Feature Importance](./images/A05_Model_Transparency_Explainability.png)
+
+![A05 Supporting Metrics](./images/Metrics_for_A05.png)
+
 
 ---
 
