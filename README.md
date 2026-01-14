@@ -4,9 +4,9 @@
 
 This project explores heart disease prediction using structured clinical data while demonstrating how **machine learning systems can be designed with security, governance, and trust in mind**.
 
-In addition to comparing traditional machine learning models (**Logistic Regression**, **K-Nearest Neighbors**, **Random Forest**) against **CatBoost**, a modern gradient boosting algorithm optimized for tabular data, the project explicitly integrates **OWASP AI Top 10 security controls** into the ML workflow.
+In addition to comparing traditional machine learning models (**Logistic Regression**, **K-Nearest Neighbors**, **Random Forest**) against **CatBoost**, a modern gradient boosting algorithm optimized for tabular data, the project explicitly integrates **OWASP AI Top 10 security controls** directly into the ML workflow.
 
-The result is not just a performant model, but a **production-aware, security-hardened AI system** suitable for high-impact domains like healthcare.
+The result is not just a performant model, but a **production-aware, security-hardened AI system** suitable for high-impact domains such as healthcare.
 
 ---
 
@@ -32,7 +32,9 @@ The dataset is static, well-documented, and contains **no personally identifiabl
 
 ## 🔐 AI Security (OWASP AI Top 10)
 
-This project incorporates **security-aware design principles aligned with the OWASP AI Top 10**, demonstrating how AI risks can be mitigated directly within the ML pipeline rather than treated as an afterthought.
+This project incorporates **security-aware design principles aligned with the OWASP AI Top 10**, demonstrating how AI risks can be mitigated **within the ML pipeline itself**, rather than treated as an afterthought.
+
+Security controls are intentionally applied to the **authoritative training dataset** to prevent integrity checks from being bypassed by derived evaluation or reporting artifacts.
 
 ### Implemented Controls
 
@@ -40,7 +42,7 @@ This project incorporates **security-aware design principles aligned with the OW
 
   * Training data integrity validation
   * Explicit schema enforcement
-  * Isolation of the authoritative training dataset from derived artifacts
+  * Isolation of authoritative training data from derived artifacts
 
 * **A03 – Input Validation**
 
@@ -49,17 +51,116 @@ This project incorporates **security-aware design principles aligned with the OW
 
 * **A04 – Automation Bias**
 
-  * Clear decision-support framing
-  * Explicit disclaimers to prevent misuse as a clinical diagnostic tool
+  * Explicit decision-support framing
+  * Clear disclaimers to prevent misuse as a clinical diagnostic tool
   * Emphasis on human judgment and medical oversight
 
 * **A05 – Transparency**
 
-  * Feature importance analysis to improve interpretability
+  * Feature importance analysis for interpretability
   * Visibility into which features most influence predictions
-  * Audit-friendly model behavior inspection
+  * Audit-friendly inspection of model behavior
 
-> Security checks are intentionally applied to the **authoritative training dataset** to prevent integrity controls from being bypassed by derived evaluation or reporting artifacts.
+---
+
+## 🔐 Securing the Machine Learning Model (Code-Level Controls)
+
+This section highlights **practical, code-level security controls** implemented directly in the notebook and mapped to the OWASP AI Top 10.
+
+### 🔴 A01 – Model Manipulation (Training Data Poisoning)
+
+**Threat:**
+Malicious or corrupted training data could bias predictions and lead to unsafe outcomes.
+
+**Controls Implemented:**
+
+* Freeze the authoritative training dataset
+* Enforce expected schema
+* Validate data integrity prior to training
+
+```python
+# Freeze authoritative training dataset for security checks
+TRAINING_DF = df.copy()
+
+label_column = "target"
+assert label_column in TRAINING_DF.columns, "Expected label column missing from dataset"
+
+features = TRAINING_DF.drop(label_column, axis=1)
+assert features.isnull().sum().sum() == 0, "Training data contains missing values"
+```
+
+**Evidence:**
+![A01 Model Manipulation](./images/A01_Model_Manipulation.png)
+
+---
+
+### 🔴 A03 – Input Validation & Adversarial Input Handling
+
+**Threat:**
+Out-of-range or malformed inputs may result in unreliable or unsafe predictions, especially in healthcare contexts.
+
+**Controls Implemented:**
+
+* Enforce domain-aware physiological bounds
+* Reject unsafe inputs before inference
+
+```python
+def validate_inputs(df):
+    assert df['age'].between(0, 120).all()
+    assert df['trestbps'].between(50, 250).all()
+    assert df['chol'].between(50, 600).all()
+    assert df['thalach'].between(50, 250).all()
+    assert df['oldpeak'].between(0, 10).all()
+    return df
+
+validate_inputs(TRAINING_DF)
+```
+
+**Evidence:**
+![A03 Input Validation](./images/A03_Input_Validation_Adversarial_Input_handling.png)
+
+---
+
+### 🔴 A05 – Model Transparency & Explainability
+
+**Threat:**
+Opaque model behavior reduces trust, auditability, and the ability to validate predictions in high-impact domains.
+
+**Controls Implemented:**
+
+* Feature importance analysis
+* Human-readable transparency into model behavior
+
+```python
+feature_importance = pd.DataFrame({
+    "feature": features.columns,
+    "importance": model.feature_importances_
+}).sort_values(by="importance", ascending=False)
+
+feature_importance
+```
+
+This enables validation that predictions are driven by **clinically meaningful features** rather than spurious correlations.
+
+**Evidence:**
+![A05 Model Transparency](./images/A05_Model_Transparency_Explainability.png)
+
+**Supporting Metrics:**
+![Metrics for A05](./images/Metrics_for_A05.png)
+
+---
+
+### 🟡 A04 – Automation Bias (Governance Control)
+
+Automation bias is mitigated through **system framing and governance**, not artificial code enforcement.
+
+Controls include:
+
+* Decision-support-only positioning
+* Explicit medical disclaimers
+* No automated clinical decision pathways
+
+This aligns with OWASP guidance that A04 is primarily a **human-factors risk**.
 
 ---
 
@@ -81,7 +182,7 @@ This project incorporates **security-aware design principles aligned with the OW
 | Over-reliance on predictions | A04               | Decision-support framing and disclaimers     |
 | Opaque model behavior        | A05               | Feature importance analysis                  |
 
-This threat model highlights how **AI-specific risks are addressed at the system design level**, not just at the model level.
+This threat model demonstrates how **AI risks are addressed at the system design level**, not just at the model level.
 
 ---
 
@@ -96,54 +197,16 @@ This threat model highlights how **AI-specific risks are addressed at the system
 
 ## Key Visualizations
 
-### 📊 CatBoost CV Metrics
-
-![Catboost cv metrics](./images/catboost_cv_metrics.png)
-
-### 📊 CatBoost Evaluation
-
-![Catboost evaluation](./images/catboost_evaluation.png)
-
-### 📊 CatBoost Feature Importance
-
-![Catboost feature importance](./images/catboost_feature_importance.png)
-
-### 📊 Confusion Matrix (Random vs Grid)
-
-![Confusion matrix random vs grid](./images/confusion_matrix_random_vs_grid.png)
-
-### 📊 Cross-Validated Metrics by Model
-
-![Cross validated metrics by model](./images/cross_validated_metrics_by_model.png)
-
-### 📊 Traditional Model CV Metrics
-
-![Traditional cv metrics](./images/traditional_cv_metrics.png)
-
-### 📊 Evaluation of Tuned Models
-
-![Evaluation tuned models](./images/evaluation_tuned_models.png)
-
-### 📊 Traditional Model Evaluation
-
-![Traditional evaluation](./images/traditional_evaluation.png)
+(Existing evaluation and transparency figures retained)
 
 ---
 
 ## Repository Structure
 
 ```
-├── Heart-Disease-Prediction.ipynb   # Main notebook (ML + AI security controls)
-├── images/                          # Evaluation and transparency visualizations
-│   ├── catboost_cv_metrics.png
-│   ├── catboost_evaluation.png
-│   ├── catboost_feature_importance.png
-│   ├── confusion_matrix_random_vs_grid.png
-│   ├── cross_validated_metrics_by_model.png
-│   ├── traditional_cv_metrics.png
-│   ├── evaluation_tuned_models.png
-│   ├── traditional_evaluation.png
-├── README.md                        # Project overview, AI security, and threat model
+├── Heart-Disease-Prediction.ipynb   # ML pipeline + AI security controls
+├── images/                          # Evaluation, transparency, and security evidence
+├── README.md                        # Project overview, AI security, threat model
 ```
 
 ---
@@ -159,7 +222,7 @@ This threat model highlights how **AI-specific risks are addressed at the system
 
 ## Why This Project Matters
 
-Machine learning accuracy alone is not sufficient in healthcare contexts.
+Machine learning accuracy alone is insufficient in healthcare.
 This project demonstrates how AI systems can be designed to:
 
 * Reduce misuse and over-reliance
@@ -173,4 +236,7 @@ This project demonstrates how AI systems can be designed to:
 This project is intended for **educational and research purposes only** and is **not a medical device**.
 
 ---
+
+
+
 
